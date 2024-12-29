@@ -46,8 +46,6 @@ function renderCart() {
     cartList.appendChild(li);
   });
 }
-
-// Add item to cart
 function addToCart(productId) {
   // Retrieve current cart from session storage
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
@@ -67,8 +65,12 @@ function addToCart(productId) {
 
     // Update the cart display
     renderCart();
+  } else {
+    console.warn(`Product ID ${productId} is already in the cart.`);
   }
 }
+
+
 
 // Clear cart
 function clearCart() {
