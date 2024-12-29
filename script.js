@@ -46,6 +46,8 @@ function renderCart() {
     cartList.appendChild(li);
   });
 }
+
+// Add item to cart
 function addToCart(productId) {
   // Retrieve current cart from session storage
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
@@ -70,8 +72,6 @@ function addToCart(productId) {
   }
 }
 
-
-
 // Clear cart
 function clearCart() {
   // Clear cart data in session storage
@@ -87,5 +87,4 @@ renderCart();
 
 // Add event listener to "Clear Cart" button
 clearCartBtn.addEventListener("click", clearCart);
-
 
