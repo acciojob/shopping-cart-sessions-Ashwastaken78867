@@ -46,13 +46,14 @@ function renderCart() {
     cartList.appendChild(li);
   });
 }
+
+// Add to cart
 function addToCart(productId) {
-  // Retrieve the current cart from session storage
+  // Retrieve current cart from session storage
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-  // Check if the product is already in the cart
+  // Prevent duplicate entries
   const productExists = cart.some((item) => item.id === productId);
-
   if (!productExists) {
     // Find the product by ID
     const product = products.find((p) => p.id === productId);
@@ -63,6 +64,8 @@ function addToCart(productId) {
     // Save the updated cart back to session storage
     sessionStorage.setItem("cart", JSON.stringify(cart));
 
+    console.log("Cart after adding product:", cart); // Debugging log
+
     // Update the cart display
     renderCart();
   } else {
@@ -70,13 +73,12 @@ function addToCart(productId) {
   }
 }
 
-
-
-
 // Clear cart
 function clearCart() {
   // Clear cart data in session storage
   sessionStorage.removeItem("cart");
+
+  console.log("Cart cleared."); // Debugging log
 
   // Update the cart display
   renderCart();
@@ -88,4 +90,5 @@ renderCart();
 
 // Add event listener to "Clear Cart" button
 clearCartBtn.addEventListener("click", clearCart);
+
 
