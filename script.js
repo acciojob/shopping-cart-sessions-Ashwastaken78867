@@ -47,31 +47,27 @@ function renderCart() {
   });
 }
 
-// Add to cart
 function addToCart(productId) {
-  // Retrieve current cart from session storage
+  // Retrieve the current cart from session storage
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-  // Prevent duplicate entries
+  // Check if the product already exists in the cart
   const productExists = cart.some((item) => item.id === productId);
-  if (!productExists) {
-    // Find the product by ID
-    const product = products.find((p) => p.id === productId);
-
-    // Add the product to the cart
-    cart.push(product);
-
-    // Save the updated cart back to session storage
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-
-    console.log("Cart after adding product:", cart); // Debugging log
-
-    // Update the cart display
-    renderCart();
-  } else {
+  if (productExists) {
     console.warn(`Product ID ${productId} is already in the cart.`);
+    return; // Exit early if the product is already in the cart
+  }
+
+  // Find the product by ID and add it to the cart
+  const product = products.find((p) => p.id === productId);
+  if (product) {
+    cart.push(product);
+    sessionStorage.setItem("cart", JSON.stringify(cart)); // Update session storage
+    console.log("Cart after adding product:", cart); // Debugging log
+    renderCart(); // Update the cart display
   }
 }
+
 
 // Clear cart
 function clearCart() {
